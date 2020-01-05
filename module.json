@@ -1,16 +1,14 @@
 {
     "disableAutoUpdate": false,
-	"name": "pet-feeder",
-	"author": "teralove",
-	"description": "Auto feed your pets.",
-    "version": "4/13/2019",
-    "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PXRFYB39SQP4A", 
-	"options": {
-		"niceName": "Pet Feeder",
+    "name": "pet-feeder",
+    "author": "edu / teralove",
+    "description": "Auto feed your pets.",
+    "options": {
+        "niceName": "Pet Feeder",
         "settingsVersion": 1,
         "settingsFile": "config.json",
-        "settingsMigrator": "settings_migrator.js"    
-	},
-    "servers": ["https://raw.githubusercontent.com/teralove/pet-feeder/master/"],
-    "supportUrl": "https://github.com/teralove/pet-feeder/issues"
+        "settingsMigrator": "settings_migrator.js",
+        "reloadable": true
+    },
+    "servers": ["https://raw.githubusercontent.com/eduedp/pet-feeder/master/"]
 }

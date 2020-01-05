@@ -1,11 +1,19 @@
 {
-  "files": {
-    "config.json": {
-        "overwrite": false,
-        "hash": "d54dd13699da5ec9827672f973fc286a6be08dec27afbe19d9a544f2ec9b91e4"
+    "files": {
+        "README.MD": "9d1c28744184701866b09c03cb1db2b45c07a3f20fac42120cf143e87a155f7f",
+        "config.json": {
+            "overwrite": false,
+            "hash": "d54dd13699da5ec9827672f973fc286a6be08dec27afbe19d9a544f2ec9b91e4"
+        },
+        "index.js": "5a5cd4b0cdc1e1b7f143e9572a1da18d66ac7e5d8e0c6ca9c07fa63a482b2a46",
+        "module.json": "7523df97dccf1235cdb758de8dcb9359a70710783128cfcd3cb20e8168f8127d",
+        "settings_migrator.js": "6ed525efa19ddd3c3e452248876c998890861acb3d67a7683d13d152c35b8b6f"
     },
-    "index.js": "821d082572e175b27906e42788a390440193ed95274cf23aac6ae009bf61a24c",
-    "module.json": "20e604c2cb199dd418eddfd895aae4e965f547d79d217f812fb4ba428861a888",
-    "settings_migrator.js": "6ed525efa19ddd3c3e452248876c998890861acb3d67a7683d13d152c35b8b6f"
-  }
+    "defs": {
+        "C_PLAYER_LOCATION": 5,
+        "C_USE_ITEM": 3,
+        "S_CHANGE_SERVANT_ENERGY": 2,
+        "S_ITEMLIST": 3,
+        "S_REQUEST_SPAWN_SERVANT": 3
+    }
 }
