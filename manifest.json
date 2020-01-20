@@ -5,7 +5,7 @@
             "overwrite": false,
             "hash": "d54dd13699da5ec9827672f973fc286a6be08dec27afbe19d9a544f2ec9b91e4"
         },
-        "index.js": "5a5cd4b0cdc1e1b7f143e9572a1da18d66ac7e5d8e0c6ca9c07fa63a482b2a46",
+        "index.js": "d6747346ad16d64dcf4adaca11ad246f3a12541b6a51cc9589b17be85de53d8f",
         "module.json": "7523df97dccf1235cdb758de8dcb9359a70710783128cfcd3cb20e8168f8127d",
         "settings_migrator.js": "6ed525efa19ddd3c3e452248876c998890861acb3d67a7683d13d152c35b8b6f"
     },
@@ -14,6 +14,6 @@
         "C_USE_ITEM": 3,
         "S_CHANGE_SERVANT_ENERGY": 2,
         "S_ITEMLIST": 3,
-        "S_REQUEST_SPAWN_SERVANT": 3
+        "S_REQUEST_SPAWN_SERVANT": 4
     }
 }
