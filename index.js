@@ -61,7 +61,7 @@ module.exports = function PetFeeder(mod) {
         }
     });
 
-    mod.hook('S_REQUEST_SPAWN_SERVANT', 3, (event) => {
+    mod.hook('S_REQUEST_SPAWN_SERVANT', 4, (event) => {
         if (mod.game.me.gameId == event.ownerId) {
             petType = event.type;
             if (mod.settings.enabled && event.energy < mod.settings.minimumEnergy) {
