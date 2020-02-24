@@ -1,64 +1,45 @@
 /* eslint-disable require-jsdoc */
 const config = require('./config.json');
+const path = require('path');
 
 module.exports = function PetFeeder(mod) {
-    let	playerLocation;
-    let onCd = false;
+    mod.game.initialize('inventory');
+
+    const PET_FOODS = [167133, 167134, 177131, 206046];
+    const PARTNER_FOODS = [206049];
+    let playerLocation;
     let petType; // 0: pet, 1: partner
+    let onCd = false;
 
+    mod.dispatch.addDefinition('S_UPDATE_SERVANT_INFO', 0, path.join(__dirname, 'S_UPDATE_SERVANT_INFO.def'));
 
-    const feedList = [
-        {
-            name: 'Pet Treat', // Common item. Restores 30 energy
-            id: 167133,
-            invQtd: 0,
-            dbid: 0,
-            type: 0,
-        },
-        {
-            name: 'Pet Treat', // Common item. Restores 30 energy
-            id: 177131,
-            invQtd: 0,
-            dbid: 0,
-            type: 0,
-        },
-        {
-            name: 'Pet Food', // Uncommon item. Restores 100 energy
-            id: 167134,
-            invQtd: 0,
-            dbid: 0,
-            type: 0,
-        },
-        {
-            name: 'Common Pet Food', // Uncommon item. Restores 30 energy
-            id: 206046,
-            invQtd: 0,
-            dbid: 0,
-            type: 0,
-        },
-        {
-            name: 'Puppy Figurine', // Partner Food
-            id: 206049,
-            invQtd: 0,
-            dbid: 0,
-            type: 1,
-        },
-    ];
-
-    mod.hook('C_PLAYER_LOCATION', 5, (event) => { playerLocation = event.loc; });
-
-    mod.hook('S_ITEMLIST', 3, { order: -10 }, (event) => {
+    mod.game.inventory.on('update', () => {
         if (!mod.settings.enabled) return;
+        petFood = [];
+        partnerFood = [];
 
-        const tempInv = event.items;
-        for (let i = 0; i < tempInv.length; i++) {
-            for (let o = 0; o < feedList.length; o++) {
-                if (feedList[o].id == tempInv[i].id) {
-                    feedList[o].invQtd = tempInv[i].amount;
-                    feedList[o].dbid = tempInv[i].dbid;
-                }
-            }
-        }
+        mod.game.inventory.findAll(PET_FOODS).forEach((item) => {
+            petFood.push({
+                id: item.id,
+                dbid: item.dbid,
+                amount: item.amount,
+                pocket: item.pocket,
+                slot: item.slot,
+            });
+        });
+        mod.game.inventory.findAll(PARTNER_FOODS).forEach((item) => {
+            partnerFood.push({
+                id: item.id,
+                dbid: item.dbid,
+                amount: item.amount,
+                pocket: item.pocket,
+                slot: item.slot,
+            });
+        });
+    });
+
+    mod.hook('C_PLAYER_LOCATION', 5, (event) => {
+        playerLocation = event.loc;
     });
 
     mod.hook('S_REQUEST_SPAWN_SERVANT', 4, (event) => {
@@ -70,43 +51,50 @@ module.exports = function PetFeeder(mod) {
         }
     });
 
-    mod.hook('S_CHANGE_SERVANT_ENERGY', 2, (event) => {
+    mod.hook('S_UPDATE_SERVANT_INFO', 0, (event) => {
         if (mod.settings.enabled && event.energy < mod.settings.minimumEnergy) {
             feedPet();
         }
     });
 
     function feedPet() {
-        for (let i = 0; i < feedList.length; i++) {
-            if (feedList[i].invQtd > 0 && feedList[i].type == petType) {
-                useItem(feedList[i]);
-                feedList[i].invQtd--;
-                onCd = true;
-                setTimeout(()=>{ onCd = false; }, 3000);
-                if (mod.settings.sendNotifications) mod.command.message('Used ' + feedList[i].name + ', ' + feedList[i].invQtd + ' remaining.');
-                return;
-            }
+        // Pet
+        if (petType == 0) {
+            const food = petFood.reduce((max, item) => (item.id > max.id ? item : max), petFood[0]);
+            useItem(food);
+        }
+        // Partner
+        if (petType == 1) {
+            const food = partnerFood.reduce((max, item) => (item.id > max.id ? item : max), partnerFood[0]);
+            useItem(food);
         }
 
-        // warning. no food in inventory
-        mod.command.message('No pet food in inventory to feed pet type ' + petType);
     }
 
-    function useItem(foodInfo) {
+    function useItem(item) {
+        if (onCd) return;
+        if (item == undefined) {
+            mod.command.message('No pet food in inventory to feed pet type ' + petType);
+            return;
+        }
+
+        onCd = true;
         mod.toServer('C_USE_ITEM', 3, {
             gameId: mod.game.me.gameId,
-            id: foodInfo.id,
-            dbid: foodInfo.dbid,
-            target: 0,
+            id: item.id,
+            dbid: item.dbid,
             amount: 1,
-            dest: {x: 0, y: 0, z: 0},
             loc: playerLocation.loc,
             w: playerLocation.w,
-            unk1: 0,
-            unk2: 0,
-            unk3: 0,
-            unk4: 1,
         });
+        // Send Notification
+        if (mod.settings.sendNotifications) {
+            mod.command.message('Used ' + feedList[i].name + ', ' + feedList[i].invQtd + ' remaining.');
+        }
+
+        mod.setTimeout(() => {
+            onCd = false;
+        }, 2500);
     }
 
     mod.command.add(['autopetfeeder', 'petfeeder'], (arg) => {
@@ -138,4 +126,4 @@ module.exports = function PetFeeder(mod) {
 
     this.destructor = () => {
     };
-}
+};
