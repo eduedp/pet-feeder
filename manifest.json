@@ -1,12 +1,12 @@
 {
     "files": {
         "README.MD": "9d1c28744184701866b09c03cb1db2b45c07a3f20fac42120cf143e87a155f7f",
-        "S_UPDATE_SERVANT_INFO.def": "0a7dbe820b11e74deb9cfcdd814849a5b2976963e123625e4e0aeabfe472f64f",
+        "S_UPDATE_SERVANT_INFO.0.def": "0a7dbe820b11e74deb9cfcdd814849a5b2976963e123625e4e0aeabfe472f64f",
         "config.json": {
             "overwrite": false,
             "hash": "d54dd13699da5ec9827672f973fc286a6be08dec27afbe19d9a544f2ec9b91e4"
         },
-        "index.js": "6eabbe6e22a56d45b7a7331a7afaf2bcd91b8b3c24322a27b7188bd37db10036",
+        "index.js": "d9dc4d16ff41f3aff6c4ed61e7ab140f8642d56d26be2929dd73d1bfd5982fe9",
         "module.json": "7523df97dccf1235cdb758de8dcb9359a70710783128cfcd3cb20e8168f8127d",
         "settings_migrator.js": "6ed525efa19ddd3c3e452248876c998890861acb3d67a7683d13d152c35b8b6f"
     },

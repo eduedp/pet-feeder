@@ -11,7 +11,7 @@ module.exports = function PetFeeder(mod) {
     let petType; // 0: pet, 1: partner
     let onCd = false;
 
-    mod.dispatch.addDefinition('S_UPDATE_SERVANT_INFO', 0, path.join(__dirname, 'S_UPDATE_SERVANT_INFO.def'));
+    mod.dispatch.addDefinition('S_UPDATE_SERVANT_INFO', 0, path.join(__dirname, 'S_UPDATE_SERVANT_INFO.0.def'));
 
     mod.game.inventory.on('update', () => {
         if (!mod.settings.enabled) return;
