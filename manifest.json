@@ -4,9 +4,9 @@
         "S_UPDATE_SERVANT_INFO.0.def": "0a7dbe820b11e74deb9cfcdd814849a5b2976963e123625e4e0aeabfe472f64f",
         "config.json": {
             "overwrite": false,
-            "hash": "d54dd13699da5ec9827672f973fc286a6be08dec27afbe19d9a544f2ec9b91e4"
+            "hash": "fe1fca6ae83abe4446f42a9a54dbaa5debc7b156c3f7d4b3f33b3434533d8bcd"
         },
-        "index.js": "d9dc4d16ff41f3aff6c4ed61e7ab140f8642d56d26be2929dd73d1bfd5982fe9",
+        "index.js": "28fbcf586741c0665f2423711d8d438d960100d0fd6832e808ab0e9c3cc32dc1",
         "module.json": "7523df97dccf1235cdb758de8dcb9359a70710783128cfcd3cb20e8168f8127d",
         "settings_migrator.js": "6ed525efa19ddd3c3e452248876c998890861acb3d67a7683d13d152c35b8b6f"
     },

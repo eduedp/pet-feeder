@@ -43,32 +43,38 @@ module.exports = function PetFeeder(mod) {
     });
 
     mod.hook('S_REQUEST_SPAWN_SERVANT', 4, (event) => {
-        if (mod.game.me.gameId == event.ownerId) {
-            petType = event.type;
-            if (mod.settings.enabled && event.energy < mod.settings.minimumEnergy) {
-                feedPet();
-            }
-        }
-    });
-
-    mod.hook('S_UPDATE_SERVANT_INFO', 0, (event) => {
-        if (mod.settings.enabled && event.energy < mod.settings.minimumEnergy) {
+        if (mod.game.me.gameId != event.ownerId) return;
+        if (checkEnergy(event)) {
             feedPet();
         }
     });
 
+    mod.hook('S_UPDATE_SERVANT_INFO', 0, (event) => {
+        if (checkEnergy(event)) {
+            feedPet();
+        }
+    });
+
+    function checkEnergy(event) {
+        petType = event.type;
+        if (!mod.settings.enabled) return false;
+        if (petType == 0) { // Pet
+            return event.energy < mod.settings.minimumEnergy;
+        }
+        if (petType == 1) { // Partner
+            return event.energy/3 < mod.settings.minimumEnergy;
+        }
+    }
+
     function feedPet() {
-        // Pet
-        if (petType == 0) {
+        if (petType == 0) { // Pet
             const food = petFood.reduce((max, item) => (item.id > max.id ? item : max), petFood[0]);
             useItem(food);
         }
-        // Partner
-        if (petType == 1) {
+        if (petType == 1) { // Partner
             const food = partnerFood.reduce((max, item) => (item.id > max.id ? item : max), partnerFood[0]);
             useItem(food);
         }
-
     }
 
     function useItem(item) {
@@ -85,12 +91,8 @@ module.exports = function PetFeeder(mod) {
             dbid: item.dbid,
             amount: 1,
             loc: playerLocation.loc,
-            w: playerLocation.w,
+            unk4: true,
         });
-        // Send Notification
-        if (mod.settings.sendNotifications) {
-            mod.command.message('Used ' + feedList[i].name + ', ' + feedList[i].invQtd + ' remaining.');
-        }
 
         mod.setTimeout(() => {
             onCd = false;
