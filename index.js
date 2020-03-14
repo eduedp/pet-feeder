@@ -10,6 +10,8 @@ module.exports = function PetFeeder(mod) {
     let playerLocation;
     let petType; // 0: pet, 1: partner
     let onCd = false;
+    let petFood = [];
+    let partnerFood = [];
 
     mod.dispatch.addDefinition('S_UPDATE_SERVANT_INFO', 0, path.join(__dirname, 'S_UPDATE_SERVANT_INFO.0.def'));
 
