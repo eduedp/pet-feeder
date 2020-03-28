@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-const config = require('./config.json');
 const path = require('path');
 
 module.exports = function PetFeeder(mod) {
@@ -105,14 +104,14 @@ module.exports = function PetFeeder(mod) {
         if (arg) arg = arg.toLowerCase();
 
         if (arg == undefined) {
-            config.enabled = !config.enabled;
+            mod.settings.enabled = !mod.settings.enabled;
         } else if (['enable', 'on'].includes(arg)) {
-            config.enabled = true;
+            mod.settings.enabled = true;
         } else if (['disable', 'off'].includes(arg)) {
-            config.enabled = false;
+            mod.settings.enabled = false;
         }
 
-        mod.command.message(`${config.enabled ? 'Enabled' : 'Disabled'}`);
+        mod.command.message(`${mod.settings.enabled ? 'Enabled' : 'Disabled'}`);
     });
 
     mod.command.add('feedpet', () => {
